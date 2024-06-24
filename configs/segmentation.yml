@@ -1,0 +1,72 @@
+# title of the experiment
+title: pulp_segmentation
+# Where to output everything, in this path a folder with
+# the same name as the title is created containing checkpoints,
+# logs and a copy of the config used
+project_dir: ./results
+seed: 33
+
+# which experiment to execute: Segmentation or Generation
+experiment:
+  name: Segmentation
+
+augmentations: ./configs/augmentation.yml
+
+data_loader:
+  dataset: ./dataset
+  # which augmentations to use, see: augmentations.yaml
+  augmentations: ./configs/augmentation.yml
+  preprocessing: ./configs/preprocessing.yaml
+  gt: gt_pulp
+
+  batch_size: 6
+  max_length: 300
+  samples_per_volume: 30
+  num_workers: 8
+
+  labels:
+    BACKGROUND: 0
+    INSIDE: 1
+
+  # shape of a single patch
+  patch_shape:
+  - 80
+  - 80
+  - 80
+
+  # reshape of the whole volume before extracting the patches
+  resize_shape:
+  - 360
+  - 280
+  - 160
+
+  rescale_shape: 0.3
+  # uniform / label
+  sampler_type: uniform
+  grid_overlap: 10
+  accumlation_iter: 16
+
+# which network to use
+model:
+  name: PosPadUNet3D
+
+loss:
+  name: Jaccard
+
+lr_scheduler:
+  name: Plateau
+  patience: 25
+
+optimizer:
+  learning_rate: 0.1
+  name: SGD
+
+trainer:
+  # Reload the last checkpoints?
+  reload: False
+  checkpoint: ./checkpoints/last.pth
+  # train the network
+  do_train: True
+  # do a single test of the network with the loaded checkpoints
+  do_test: False
+  epochs: 100

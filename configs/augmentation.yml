@@ -1,0 +1,18 @@
+RandomAffine:
+  scales: !!python/tuple [0.8, 1.2]
+  degrees: !!python/tuple [15, 15]
+  isotropic: false
+  image_interpolation: linear
+  p: 0.35
+RandomElasticDeformation:
+    num_control_points: 7
+    p: 0.35
+RandomFlip:
+  axes: 2
+  flip_probability: 0.7
+RandomBlur:
+  p: 0.25
+RandomGhosting:
+  num_ghosts: !!python/tuple [4, 10]
+RandomSwap:
+  patch_size: 15
