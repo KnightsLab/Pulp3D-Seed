@@ -30,3 +30,6 @@ pip install -r requirements.txt
 ```
 python main.py --config configs/segmentation.yml
 ```
+
+## Dataset
+You can access the data evaluated using our model using this [link](http://eng.staff.alexu.edu.eg/staff/mtorki/Research/Data/JDR_Files/)
